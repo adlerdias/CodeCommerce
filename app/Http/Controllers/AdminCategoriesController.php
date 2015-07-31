@@ -10,9 +10,9 @@ use CodeCommerce\Http\Controllers\Controller;
 
 class AdminCategoriesController extends Controller
 {
-    private $categories;
+    private $categoryModel;
     public function __construct(Category $category) {
-        $this->categories = $category;
+        $this->categoryModel = $category;
     }
     /**
      * Display a listing of the resource.
@@ -21,8 +21,8 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = $this->categories->all();
-        return view('categories', compact('categories'));
+        $categories = $this->categoryModel->all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -32,7 +32,7 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -41,9 +41,12 @@ class AdminCategoriesController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CategoryRequest $request)
     {
-        //
+        $input = $request->all();
+        $category = $this->categoryModel->fill($input);
+        $category->save();
+        return redirect()->route('admin.categories');
     }
 
     /**
@@ -65,7 +68,8 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->categoryModel->find($id);
+        return view('categories.edit')->with(compact('category'));
     }
 
     /**
@@ -75,9 +79,10 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CategoryRequest $request, $id)
     {
-        //
+        $this->categoryModel->find($id)->update($request->all());
+        return redirect()->route('admin.categories');
     }
 
     /**
@@ -88,6 +93,7 @@ class AdminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->categoryModel->find($id)->delete();
+        return redirect()->route('admin.categories');
     }
 }
