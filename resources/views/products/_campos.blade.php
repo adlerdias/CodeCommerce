@@ -16,6 +16,17 @@
     @if ($errors->has('price')) <p class="help-block">{{ $errors->first('price') }}</p> @endif
 </div>
 
+<div class="form-group @if ($errors->has('featured')) has-error @endif">
+    {!! Form::label('featured', 'Featured:') !!}{!! Form::checkbox('featured', 1,  null, ['class' => '']) !!}
+    @if ($errors->has('featured')) <p class="help-block">{{ $errors->first('featured') }}</p> @endif
+</div>
+
+<div class="form-group @if ($errors->has('recommend')) has-error @endif">
+    {!! Form::label('recommend', 'Recommend:') !!}{!! Form::checkbox('recommend', 1,  $product->recommend, ['class' => '']) !!}
+    @if ($errors->has('recommend')) <p class="help-block">{{ $errors->first('recommend') }}</p> @endif
+</div>
+
+
 <div class="form-group">
     {!! Form::submit('Add Product', ['class'=>'btn btn-primary form-control']) !!}
 </div>
