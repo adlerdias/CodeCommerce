@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent;
-use CodeCommerce\Category;
-
 
 class UserTableSeeder extends Illuminate\Database\Seeder
 {

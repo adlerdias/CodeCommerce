@@ -1,3 +1,9 @@
+<div class="form-group @if ($errors->has('category_id')) has-error @endif">
+    {!! Form::label('category_id', 'Category:') !!}
+    {!! Form::select('category_id', $categories, ['class'=>'form-control']) !!}
+    @if ($errors->has('category_id')) <p class="help-block">{{ $errors->first('category_id') }}</p> @endif
+</div>
+
 <div class="form-group @if ($errors->has('name')) has-error @endif">
     {!! Form::label('name', 'Name:') !!}
     {!! Form::text('name', null, ['class'=>'form-control']) !!}
@@ -22,7 +28,7 @@
 </div>
 
 <div class="form-group @if ($errors->has('recommend')) has-error @endif">
-    {!! Form::label('recommend', 'Recommend:') !!}{!! Form::checkbox('recommend', 1,  $product->recommend, ['class' => '']) !!}
+    {!! Form::label('recommend', 'Recommend:') !!}{!! Form::checkbox('recommend', 1,  'recommend', ['class' => '']) !!}
     @if ($errors->has('recommend')) <p class="help-block">{{ $errors->first('recommend') }}</p> @endif
 </div>
 

@@ -31,6 +31,7 @@
                     </tr>
                     @endforeach
                 </table>
+                {!! $categories->render() !!}
             </div>
         </div>
     </div>
