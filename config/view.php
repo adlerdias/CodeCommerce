@@ -17,6 +17,8 @@ return [
         realpath(base_path('resources/views')),
     ],
 
+    'cache' => false,
+
     /*
     |--------------------------------------------------------------------------
     | Compiled View Path

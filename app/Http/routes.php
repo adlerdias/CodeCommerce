@@ -13,10 +13,6 @@
 
 Route::Pattern('id', '[0-9]+');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['prefix' => 'categories'], function () {
@@ -34,6 +30,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('store', ['as' => 'admin.products.store', 'uses' => 'AdminProductsController@store']);
         Route::get('delete/{id}', ['as' => 'admin.products.destroy', 'uses' => 'AdminProductsController@destroy']);
         Route::get('edit/{id}', ['as' => 'admin.products.edit', 'uses' => 'AdminProductsController@edit']);
+        Route::get('{id}/images', ['as' => 'admin.products.images', 'uses' => 'AdminProductsController@images']);
+        Route::get('{id}/createImage', ['as' => 'admin.products.images.create', 'uses' => 'AdminProductsController@createImage']);
+        Route::post('{id}/storeImage', ['as' => 'admin.products.images.store', 'uses' => 'AdminProductsController@storeImage']);
+        Route::get('{id}/destroyImage', ['as' => 'admin.products.images.destroy', 'uses' => 'AdminProductsController@destroyImage']);
         Route::put('update/{id}', ['as' => 'admin.products.update', 'uses' => 'AdminProductsController@update']);
     });
+});
+
+Route::get('/', function () {
+    return view('welcome');
 });
