@@ -15,11 +15,23 @@ class Product extends Model
         'recommend'
     ];
 
-    public function images() {
+    public function images()
+    {
         return $this->hasMany('CodeCommerce\ProductImage');
     }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo('CodeCommerce\Category');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('CodeCommerce\Tag');
+    }
+
+    public function getTagListAttribute()
+    {
+        return false;
     }
 }
