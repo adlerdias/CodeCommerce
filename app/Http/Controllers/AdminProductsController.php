@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\File;
 class AdminProductsController extends Controller
 {
     private $productModel;
-    public function __construct(Product $product) {
+    public function __construct(Product $product)
+    {
         $this->productModel = $product;
     }
     /**
@@ -158,8 +159,7 @@ class AdminProductsController extends Controller
     public function destroyImage(ProductImage $productImage, $id)
     {
         $image = $productImage->find($id);
-
-        if (file_exists(public_path('uploads').$image->id.'.'.$image->extension)) {
+        if (file_exists(public_path('uploads').'/'.$image->id.'.'.$image->extension)) {
             Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
         }
 
