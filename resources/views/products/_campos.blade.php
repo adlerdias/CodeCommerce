@@ -22,6 +22,12 @@
     @if ($errors->has('price')) <p class="help-block">{{ $errors->first('price') }}</p> @endif
 </div>
 
+<div class="form-group @if ($errors->has('taglist')) has-error @endif">
+    {!! Form::label('taglist', 'Tags:') !!}
+    {!! Form::textarea('taglist', null, ['class'=>'form-control']) !!}
+    @if ($errors->has('taglist')) <p class="help-block">{{ $errors->first('taglist') }}</p> @endif
+</div>
+
 <div class="form-group @if ($errors->has('featured')) has-error @endif">
     {!! Form::label('featured', 'Featured:') !!}{!! Form::checkbox('featured', 1,  null, ['class' => '']) !!}
     @if ($errors->has('featured')) <p class="help-block">{{ $errors->first('featured') }}</p> @endif

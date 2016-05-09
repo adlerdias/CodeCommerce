@@ -30,7 +30,7 @@
                         <td>
                             <a class="btn btn-success btn-xs" href="{{ route('admin.products.edit', ['id'=>$product->id]) }}"><i class="fa fa-search"></i></a>
                             <a class="btn btn-primary btn-xs" href="{{ route('admin.products.edit', ['id'=>$product->id]) }}"><i class="fa fa-pencil"></i></a>
-                            <a class="btn btn-primary btn-xs" href="{{ route('admin.products.images', ['id'=>$product->id]) }}"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-primary btn-xs" href="{{ route('admin.products.images', ['id'=>$product->id]) }}"><i class="fa fa-file-image-o"></i></a>
 
                             <a class="btn btn-danger btn-xs" href="{{ route('admin.products.destroy', ['id'=>$product->id]) }}"><i class="fa fa-trash"></i></a>
                         </td>

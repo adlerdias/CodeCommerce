@@ -5,6 +5,7 @@ namespace CodeCommerce\Http\Controllers;
 use CodeCommerce\Category;
 use CodeCommerce\Product;
 use CodeCommerce\ProductImage;
+use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 
 use CodeCommerce\Http\Requests;
@@ -38,8 +39,9 @@ class AdminProductsController extends Controller
     public function create(Category $category)
     {
         $categories = $category->lists('name', 'id');
+        $tags = '';
 
-        return view('products.create', compact('categories'));
+        return view('products.create', compact('categories', 'tags'));
     }
 
     /**
@@ -53,6 +55,11 @@ class AdminProductsController extends Controller
         $input = $request->all();
         $product = $this->productModel->fill($input);
         $product->save();
+
+        $tags = $this->tags_to_array($request->get('taglist'));
+
+        $product->tags()->sync($tags);
+
         return redirect()->route('admin.products');
     }
 
@@ -77,7 +84,8 @@ class AdminProductsController extends Controller
     {
         $categories = $category->lists('name', 'id');
         $product = $this->productModel->find($id);
-        return view('products.edit')->with(compact('product', 'categories'));
+        $tags = $product->tag_list;
+        return view('products.edit')->with(compact('product', 'categories', 'tags'));
     }
 
     /**
@@ -89,7 +97,13 @@ class AdminProductsController extends Controller
      */
     public function update(Requests\ProductRequest $request, $id)
     {
-        $this->productModel->find($id)->update($request->all());
+        $product = $this->productModel->find($id);
+        $product->fill($request->all())->save();
+
+        $tags = $this->tags_to_array($request->get('taglist'));
+
+        $product->tags()->sync($tags);
+
         return redirect()->route('admin.products');
     }
 
@@ -168,5 +182,18 @@ class AdminProductsController extends Controller
         $image->delete();
 
         return redirect()->route('admin.products.images', ['id'=>$product->id]);
+    }
+
+    function tags_to_array($string)
+    {
+        $tags = explode(',', $string);
+
+        $result = [];
+
+        foreach ($tags as $tag) {
+            array_push($result, Tag::firstOrCreate(['name' => trim($tag)])->id);
+        }
+
+        return $result;
     }
 }
