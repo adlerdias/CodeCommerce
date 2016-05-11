@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'StoreController@index');
+
+Route::group(['prefix' => 'category'], function () {
+    Route::get('{name}', ['as' => 'category', 'uses' => 'StoreController@show']);
 });

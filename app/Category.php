@@ -12,4 +12,11 @@ class Category extends Model
     {
         return $this->hasMany('CodeCommerce\Product');
     }
+
+    public function scopeAvailable($query)
+    {
+        return $query->select(['categories.id', 'categories.name'])
+            ->rightJoin('products', 'categories.id', '=', 'products.category_id')
+            ->groupBy('categories.id');
+    }
 }
