@@ -51,4 +51,16 @@ class Product extends Model
         return $query->join('categories', 'products.category_id', '=', 'categories.id')
             ->where('categories.name', '=', $name);
     }
+
+    public function scopeByTagName($query, $name)
+    {
+        $results = $query->join('product_tag', 'products.id', '=', 'product_tag.product_id')
+            ->join('tags', 'product_tag.tag_id', '=', 'tags.id')
+            ->where('tags.name', 'LIKE', $name);
+        return $results;
+//        return $query->join('product_tag', 'products.id', '=', 'product_tag.product_id')
+//            ->join('tags', 'product_tag.tag_id', '=', 'tags.id')
+//            ->where('tags.name', '=', $name);
+
+    }
 }

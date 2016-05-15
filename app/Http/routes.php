@@ -38,8 +38,20 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
-Route::get('/', 'StoreController@index');
+//Route::group(['prefix' => 'category'], function () {
+//    Route::get('{name}', ['as' => 'category', 'uses' => 'StoreController@show']);
+//});
+//
+//Route::group(['prefix' => 'product'], function () {
+//    Route::get('{id}', ['as' => 'product', 'uses' => 'StoreController@product']);
+//});
 
-Route::group(['prefix' => 'category'], function () {
-    Route::get('{name}', ['as' => 'category', 'uses' => 'StoreController@show']);
-});
+Route::get('category/{name}', ['as' => 'category', 'uses' => 'StoreController@show']);
+Route::get('product/{id}', ['as' => 'product', 'uses' => 'StoreController@product']);
+Route::get('tag/{name}', ['as' => 'tag', 'uses' => 'StoreController@tag']);
+//Route::get('category/{name}', 'StoreController@show');
+//Route::get('product/{id}', 'StoreController@product');
+//Route::get('tag/{id}', 'StoreController@tag');
+
+
+Route::get('/', 'StoreController@index');
