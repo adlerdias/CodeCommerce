@@ -47,8 +47,14 @@ Route::group(['prefix' => 'admin'], function () {
 //});
 
 Route::get('category/{name}', ['as' => 'category', 'uses' => 'StoreController@show']);
-Route::get('product/{id}', ['as' => 'product', 'uses' => 'StoreController@product']);
+Route::get('product/{id}', ['as' => 'store.product', 'uses' => 'StoreController@product']);
 Route::get('tag/{name}', ['as' => 'tag', 'uses' => 'StoreController@tag']);
+Route::get('cart/add/{id}', ['as' => 'cart.add', 'uses' => 'CartController@add']);
+//Route::get('cart/update/{id}', ['as' => 'cart.update', 'uses' => 'CartController@update']);
+Route::get('cart/update/{product}/{quantity}', ['as' => 'cart.update', 'uses' => 'CartController@update']);
+Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
+Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
+
 //Route::get('category/{name}', 'StoreController@show');
 //Route::get('product/{id}', 'StoreController@product');
 //Route::get('tag/{id}', 'StoreController@tag');
