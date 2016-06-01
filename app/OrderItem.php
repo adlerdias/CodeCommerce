@@ -13,11 +13,13 @@ class OrderItem extends Model
         'quantity'
     ];
 
-    public function order() {
+    public function order()
+    {
         return $this->belongsTo('CodeCommerce\Order');
     }
     
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo('CodeCommerce\Product');
     }
 }

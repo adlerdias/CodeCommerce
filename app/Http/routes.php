@@ -53,7 +53,11 @@ Route::get('cart/update/{product}/{quantity}', ['as' => 'cart.update', 'uses' =>
 Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
 Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
 
-Route::get('checkout/placeOrder', ['as'=>'checkout.place', 'middleware'=>'auth', 'uses'=>'CheckoutController@place']);
+Route::group(['middleware'=> 'auth'], function() {
+    Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+    Route::get('account/orders', ['as' => 'account.orders', 'uses' => 'AccountController@orders']);
+});
+
 
 // Authentication Routes...
 Route::get('auth/login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin']);
@@ -61,11 +65,11 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout']);
 
 // Registration Routes...
-$this->get('auth/register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@showRegistrationForm']);
+$this->get('auth/register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);
 $this->post('auth/register', 'Auth\AuthController@register');
 
 // Password Reset Routes...
-$this->get('auth/password/reset/{token?}', ['as' => 'password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
+$this->get('auth/password/reset/{token?}', ['as' => 'password.reset', 'uses' => 'Auth\PasswordController@getEmail']);
 $this->post('auth/password/email', ['as' => 'password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
 $this->post('auth/password/reset', 'Auth\PasswordController@reset');
 
