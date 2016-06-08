@@ -34,6 +34,11 @@ Route::group(['prefix'=>'admin', 'middleware'=> 'auth.role', 'where'=>['id'=>'[0
         Route::get('{id}/destroyImage', ['as' => 'admin.products.images.destroy', 'uses' => 'AdminProductsController@destroyImage']);
         Route::put('update/{id}', ['as' => 'admin.products.update', 'uses' => 'AdminProductsController@update']);
     });
+
+    Route::group(['prefix'=>'orders'], function () {
+        Route::get('/', ['as'=>'admin.orders', 'uses'=>'OrdersController@index']);
+        Route::put('{id}/update', ['as'=>'admin.orders.update', 'uses'=>'OrdersController@update']);
+    });
 });
 
 //Route::group(['prefix' => 'category'], function () {
@@ -66,7 +71,7 @@ Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController
 
 // Registration Routes...
 $this->get('auth/register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);
-$this->post('auth/register', 'Auth\AuthController@register');
+$this->post('auth/register', 'Auth\AuthController@postRegister');
 
 // Password Reset Routes...
 $this->get('auth/password/reset/{token?}', ['as' => 'password.reset', 'uses' => 'Auth\PasswordController@getEmail']);
